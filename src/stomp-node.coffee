@@ -39,7 +39,7 @@ wrapTCP = (port, host) ->
   buffer = new Buffer(0)
   socket.on 'data', (data) ->
     data = Buffer.concat([buffer, data])
-    if ('\n' != data.slice(-1))
+    if ('\n' != data.slice(-1).toString())
       buffer = data
       return;
 
