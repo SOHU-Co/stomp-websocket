@@ -47,6 +47,7 @@ wrapTCP = (port, host) ->
       'data': data.toString()
     }
     ws.onmessage(event)
+    buffer = new Buffer(0)
 
   return ws
 
