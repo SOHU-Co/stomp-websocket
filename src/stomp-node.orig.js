@@ -31,14 +31,22 @@ var wrapTCP = function(port, host) {
       ws.onclose();
     }
   });
+  var buffer = new Buffer(0);
   socket.on('data', function(data) {
+    data = Buffer.concat([buffer, data]);
+    if ('\n' != data.slice(-1)) {
+      buffer = data;
+      return;
+    }
+
     // wrap the data in an event object
     var event = {
       'data': data.toString()
     };
     ws.onmessage(event);
+    buffer = new Buffer(0);
   });
-  
+
   return ws;
 };
 
@@ -56,7 +64,7 @@ var wrapWS = function(url) {
       connection.close();
     }
   };
-  
+
   var socket = new WebSocketClient();
   socket.on('connect', function(conn) {
       connection = conn;

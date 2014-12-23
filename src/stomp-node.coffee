@@ -36,7 +36,13 @@ wrapTCP = (port, host) ->
   socket = net.connect port, host, (e) -> ws.onopen()
   socket.on 'error', (e) -> ws.onclose?(e)
   socket.on 'close', (e) -> ws.onclose?(e)
+  buffer = new Buffer(0)
   socket.on 'data', (data) ->
+    data = Buffer.concat([buffer, data])
+    if ('\n' != data.slice(-1))
+      buffer = data
+      return;
+
     event = {
       'data': data.toString()
     }
