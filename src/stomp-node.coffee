@@ -4,7 +4,8 @@
 # or Web sockets.
 
 ###
-   Stomp Over WebSocket http://www.jmesnil.net/stomp-websocket/doc/ | Apache License V2.0
+   Stomp Over WebSocket http://www.jmesnil.net/stomp-websocket/doc/ |
+   Apache License V2.0
 
    Copyright (C) 2013 [Jeff Mesnil](http://jmesnil.net/)
 ###
@@ -41,7 +42,7 @@ wrapTCP = (port, host) ->
     data = Buffer.concat([buffer, data])
     if ('\n' != data.slice(-1).toString())
       buffer = data
-      return;
+      return
 
     event = {
       'data': data.toString()
